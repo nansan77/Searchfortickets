@@ -18,6 +18,7 @@ class TicketManagerTest {
     private InformationTicket ticketComfortS = new InformationTicket(99, 9800, "SVO", "YOW", 230000);
     private InformationTicket ticketBusinessV = new InformationTicket(111, 7000, "VKO", "YOW", 230500);
     private InformationTicket ticketVIPV = new InformationTicket(222, 15720, "VKO", "YOW", 220000);
+    private InformationTicket ticketVIPB = new InformationTicket(333, 3500, "BKA", "YOW", 2309000);
 
     @Test
     void searchByAndSortAllTickets() {
@@ -87,6 +88,71 @@ class TicketManagerTest {
         assertArrayEquals(actual, expected);
 
     }
+    @Test
+    void searchByAndSortAllTickets3() {
+
+        repository.save(ticketBusinessD);
+        repository.save(ticketComfortV);
+        repository.save(ticketEconomyD);
+        repository.save(ticketVIPS);
+        repository.save(ticketEconomyV);
+        repository.save(ticketComfortTwoV);
+        repository.save(ticketEconomyTwoD);
+        repository.save(ticketComfortS);
+        repository.save(ticketBusinessV);
+        repository.save(ticketVIPV);
+
+        TicketManager manager = new TicketManager(repository);
+        InformationTicket[] actual = manager.searchBy("","");
+        InformationTicket[] expected = new InformationTicket[]{};
+
+        assertArrayEquals(actual, expected);
+
+    }
+    @Test
+    void searchByAndSortAllTickets4() {
+
+        repository.save(ticketBusinessD);
+        repository.save(ticketComfortV);
+        repository.save(ticketEconomyD);
+
+        repository.save(ticketEconomyV);
+        repository.save(ticketComfortTwoV);
+        repository.save(ticketEconomyTwoD);
+
+        repository.save(ticketBusinessV);
+        repository.save(ticketVIPV);
 
 
+        TicketManager manager = new TicketManager(repository);
+        InformationTicket[] actual = manager.searchBy("SVO", "YOW");
+        InformationTicket[] expected = new InformationTicket[]{};
+
+        assertArrayEquals(actual, expected);
+
+    }
+    @Test
+    void searchByAndSortAllTickets5() {
+
+        repository.save(ticketBusinessD);
+        repository.save(ticketComfortV);
+        repository.save(ticketEconomyD);
+        repository.save(ticketVIPS);
+        repository.save(ticketEconomyV);
+        repository.save(ticketComfortTwoV);
+        repository.save(ticketEconomyTwoD);
+        repository.save(ticketComfortS);
+        repository.save(ticketBusinessV);
+        repository.save(ticketVIPV);
+        repository.save(ticketVIPB);
+
+        TicketManager manager = new TicketManager(repository);
+        InformationTicket[] actual = manager.searchBy("BKA","YOW");
+        InformationTicket[] expected = new InformationTicket[]{ticketVIPB};
+
+        assertArrayEquals(actual, expected);
+
+
+
+    }
 }
